@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-secondary;
+  @apply rounded-md;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-primary;
+  @apply rounded-md;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral;
+}
+
 .btn {
-    @apply capitalize;
-  }
+  @apply capitalize;
+}
+
+.quill {
+  height: fit-content !important;
+}
+
+.ql-editor {
+  @apply min-h-[13rem];
+  @apply lg:min-h-[10rem];
+}
+
+.ql-container {
+  border: 0 !important;
+}
+
+.ql-editor.ql-blank::before::-moz-focus-inner {
+  border: 0 !important;
+  outline: none !important;
+}
+
+.ql-editor.ql-blank::before:focus {
+  border: 0 !important;
+  outline: none !important;
+}
+
+.ql-editor.ql-blank::before {
+  @apply font-serif;
+  @apply text-sm;
+  @apply md:text-base;
+  font-style: normal !important;
+}

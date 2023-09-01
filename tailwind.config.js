@@ -8,7 +8,8 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ['Inter', 'sans-serif']
+      sans: ['Inter', 'sans-serif'],
+      serif: ['Merriweather', 'serif']
     }
   },
   plugins: [daisyui],

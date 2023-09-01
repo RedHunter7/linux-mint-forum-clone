@@ -1,13 +1,13 @@
 import { type ReactNode, useState } from 'react'
-import { Editor, EditorState } from 'draft-js'
-import 'draft-js/dist/Draft.css'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 const RichTextEditor = (): ReactNode => {
-  const [editorState, setEditorState] = useState(
-    () => EditorState.createEmpty()
-  )
+  const [value, setValue] = useState('')
 
-  return <Editor editorState={editorState} onChange={setEditorState} />
+  return <ReactQuill
+  placeholder='Write your content here'
+  theme="snow" value={value} onChange={setValue} />
 }
 
 export default RichTextEditor
