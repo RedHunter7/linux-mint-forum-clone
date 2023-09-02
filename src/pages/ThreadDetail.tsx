@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 import { faPencil, faReply, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import RichTextEditor from '../components/RichTextEditor'
+import Editor from '../components/rich-text-editor/Editor'
 
 const ThreadDetail = (): ReactNode => {
   return (
@@ -63,8 +63,7 @@ const ThreadDetail = (): ReactNode => {
         </button>
         <dialog id="write_thread_modal" className="modal">
             <form method="dialog" className="modal-box px-0
-            w-full max-w-5xl rounded-none
-            min-h-fit">
+            w-full max-w-5xl rounded-none min-h-fit">
                  <button className="btn btn-sm btn-circle btn-ghost
                  absolute right-2 top-2">
                     <FontAwesomeIcon icon={faX}/>
@@ -83,7 +82,7 @@ const ThreadDetail = (): ReactNode => {
                     focus:bg-transparent focus focus:outline-0" />
                 </div>
                 <div className='bg-neutral-content mt-8 py-1 mb-2'>
-                    <RichTextEditor/>
+                    <Editor/>
                 </div>
                 <button className="btn btn-sm md:btn-md mr-6
                 bg-gradient-to-b hover:bg-gradient-to-l

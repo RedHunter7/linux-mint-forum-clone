@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,14 +13,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-secondary;
-  @apply rounded-md;
+  @apply bg-secondary rounded-md;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary;
-  @apply rounded-md;
+  @apply bg-primary rounded-md;
 }
 
 /* Handle on hover */
@@ -29,31 +31,34 @@
 }
 
 .quill {
-  height: fit-content !important;
+  @apply !h-fit;
 }
 
 .ql-editor {
-  @apply min-h-[13rem];
-  @apply lg:min-h-[10rem];
+  @apply min-h-[13rem] lg:min-h-[10rem];
 }
 
 .ql-container {
-  border: 0 !important;
+  @apply !border-0;
 }
 
-.ql-editor.ql-blank::before::-moz-focus-inner {
-  border: 0 !important;
-  outline: none !important;
-}
-
+.ql-editor.ql-blank::before::-moz-focus-inner 
 .ql-editor.ql-blank::before:focus {
-  border: 0 !important;
-  outline: none !important;
+  @apply !border-0 !outline-0;
 }
 
 .ql-editor.ql-blank::before {
-  @apply font-serif;
-  @apply text-sm;
-  @apply md:text-base;
-  font-style: normal !important;
+  @apply text-sm md:text-base not-italic
+}
+
+.ql-editor > p {
+  @apply text-sm md:text-base font-serif
+}
+
+.ql-editor > .ql-syntax {
+  @apply text-sm md:text-base font-mono
+}
+
+.ql-tooltip {
+  @apply !translate-x-32;
 }
