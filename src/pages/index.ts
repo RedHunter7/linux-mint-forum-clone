@@ -1,0 +1,5 @@
+export { Home } from './Home'
+export { ThreadDetail } from './ThreadDetail'
+export { Login } from './Login'
+export { Register } from './Register'
+export { Leaderboard } from './Leaderboard'

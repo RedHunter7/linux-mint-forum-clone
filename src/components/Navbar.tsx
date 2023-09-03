@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom'
 
 const Navbar = (): ReactNode => {
   return (
-    <div className="navbar fixed top-0 bg-primary text-neutral-content
-    xl:px-8 md:px-4 md:py-2">
+    <nav className="navbar fixed top-0
+    bg-primary text-neutral-content
+    xl:px-8 md:px-4 md:py-2 z-50">
       <div className="flex-none">
         <Link to={'/'} className="btn btn-outline btn-circle
         btn-secondary border-0">
@@ -24,17 +25,17 @@ const Navbar = (): ReactNode => {
         </Link>
       </div>
       <div className="flex-none gap-x-2 lg:gap-x-8">
-        <button className="btn btn-ghost font-medium
+        <Link to={'/login'} className="btn btn-ghost font-medium
         text-lg lg:text-2xl">
           <FontAwesomeIcon icon={faRightToBracket}/>
           <div className='text-base'>Log In</div>
-        </button>
-        <button className="btn btn-circle btn-ghost
+        </Link>
+        <Link to={'/leaderboard'} className="btn btn-circle btn-ghost
         text-xl lg:text-2xl">
           <FontAwesomeIcon icon={faChartSimple}/>
-        </button>
+        </Link>
       </div>
-    </div>
+    </nav>
   )
 }
 

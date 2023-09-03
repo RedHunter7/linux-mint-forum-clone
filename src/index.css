@@ -30,6 +30,12 @@
   @apply capitalize;
 }
 
+.bg-gradient {
+  @apply bg-gradient-to-b hover:bg-gradient-to-l;
+  @apply text-neutral-content;
+  @apply to-[#2AB9A5] from-[#69B53F];
+}
+
 .quill {
   @apply !h-fit;
 }
