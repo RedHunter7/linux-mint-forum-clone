@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { ReactComponent as Logo } from '../assets/linux-mint-logo.svg'
+import { ReactComponent as Logo } from '../../assets/linux-mint-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartSimple, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
