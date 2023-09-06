@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 
-export const Leaderboard = (): ReactNode => {
+export const LeaderboardPage = (): ReactNode => {
   return (
     <div>
         <table className="table mx-auto max-w-xl bg-accent">

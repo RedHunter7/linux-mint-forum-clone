@@ -1,6 +1,9 @@
 import { type ReactNode } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Home, Leaderboard, Login, Register, ThreadDetail } from './pages'
+import {
+  HomePage, LeaderboardPage, LoginPage,
+  RegisterPage, ThreadDetailPage
+} from './pages'
 import Navbar from './components/navigations/Navbar'
 
 const App = (): ReactNode => {
@@ -12,11 +15,11 @@ const App = (): ReactNode => {
       <div className='mt-20 font-sans'>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="/detail" element={<ThreadDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route index element={<HomePage />} />
+            <Route path="/detail" element={<ThreadDetailPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
           </Route>
         </Routes>
       </div>

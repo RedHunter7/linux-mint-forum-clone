@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
-export const Login = (): ReactNode => {
+export const LoginPage = (): ReactNode => {
   return (
     <div className="hero min-h-[80vh] max-w-5xl mx-auto">
       <div className="hero-content flex-col

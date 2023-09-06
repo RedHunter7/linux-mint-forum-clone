@@ -1,2 +1,2 @@
-export { ThreadPost } from './ThreadPost'
-export { ThreadReply } from './ThreadReply'
+export { ThreadCard } from './ThreadCard'
+export { ReplyCard } from './ReplyCard'

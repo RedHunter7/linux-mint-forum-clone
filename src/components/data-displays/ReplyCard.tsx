@@ -2,7 +2,7 @@ import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type ReactNode } from 'react'
 
-export const ThreadReply = (): ReactNode => {
+export const ReplyCard = (): ReactNode => {
   return (
     <div className="w-full">
       <div

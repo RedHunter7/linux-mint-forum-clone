@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 
-export const Register = (): ReactNode => {
+export const RegisterPage = (): ReactNode => {
   return (
     <div className="hero min-h-[80vh] max-w-5xl mx-auto">
       <div className="hero-content flex-col
