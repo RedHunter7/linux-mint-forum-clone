@@ -23,7 +23,7 @@ const App = (): ReactNode => {
           </Route>
         </Routes>
       </div>
-      </BrowserRouter>
+    </BrowserRouter>
   )
 }
 

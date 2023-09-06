@@ -1,15 +1,14 @@
+import {
+  type AccountLoginProps, type AccountRegisterProps,
+  type ThreadContentProps, type FetchAPIOptions
+} from '../interfaces'
+
 const api = (() => {
   const BASE_URL = 'https://forum-api.dicoding.dev/v1'
 
-  interface options {
-    method: string
-    headers: object | null
-    body: string | null
-  }
-
-  const _fetchWithAuth = async (url: string, options: options = {
+  const _fetchWithAuth = async (url: string, options: FetchAPIOptions = {
     method: 'GET', headers: null, body: null
-  }): Promise<object> => {
+  }): Promise<any> => {
     return await fetch(url, {
       ...options,
       headers: {
@@ -31,14 +30,8 @@ const api = (() => {
     return accessToken
   }
 
-  interface accountRegister {
-    id: string
-    email: string
-    password: string
-  }
-
-  const register = async (account: accountRegister): Promise<object> => {
-    const response = await fetch(`${BASE_URL}/users`, {
+  const register = async (account: AccountRegisterProps): Promise<object> => {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -58,13 +51,7 @@ const api = (() => {
     return user
   }
 
-  interface accountLogin {
-    id: string
-    email: string
-    password: string
-  }
-
-  const login = async (account: accountLogin): Promise<string> => {
+  const login = async (account: AccountLoginProps): Promise<string> => {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
@@ -119,7 +106,7 @@ const api = (() => {
   }
 
   const getAllThreads = async (): Promise<object> => {
-    const response = await fetch(`${BASE_URL}/talks`)
+    const response = await fetch(`${BASE_URL}/threads`)
 
     const responseJson = await response.json()
 
@@ -135,7 +122,7 @@ const api = (() => {
   }
 
   const getThreadDetail = async (id: string): Promise<object> => {
-    const response = await fetch(`${BASE_URL}/talks/${id}`)
+    const response = await fetch(`${BASE_URL}/threads/${id}`)
 
     const responseJson = await response.json()
 
@@ -150,18 +137,13 @@ const api = (() => {
     return talkDetail
   }
 
-  interface Thread {
-    text: string
-    replyTo: string
-  }
-
-  const createThread = async (Thread: Thread): Promise<object> => {
-    const response = await _fetchWithAuth(`${BASE_URL}/talks`, {
+  const createThread = async (thread: ThreadContentProps): Promise<object> => {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(Thread)
+      body: JSON.stringify(thread)
     })
 
     const responseJson = await response.json()
@@ -178,7 +160,7 @@ const api = (() => {
   }
 
   const toggleLikeThread = async (id: string): Promise<void> => {
-    const response = await _fetchWithAuth(`${BASE_URL}/talks/likes`, {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/likes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
