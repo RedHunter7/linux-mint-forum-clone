@@ -1,6 +1,20 @@
 import { type ReactNode } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { asyncRegisterUser } from '../redux/users/action'
+import { type AccountRegisterProps } from '../interfaces'
+import { type AppDispatch } from '../redux'
+import { RegisterForm } from '../components/forms'
 
 export const RegisterPage = (): ReactNode => {
+  const navigate = useNavigate()
+  const dispatch: AppDispatch = useDispatch()
+
+  const onRegister = (props: AccountRegisterProps): void => {
+    void dispatch(asyncRegisterUser(props))
+    navigate('/')
+  }
+
   return (
     <div className="hero min-h-[80vh] max-w-5xl mx-auto">
       <div className="hero-content flex-col
@@ -16,32 +30,7 @@ export const RegisterPage = (): ReactNode => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm
         shadow-2xl bg-base-100">
-          <div className="card-body">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input type="text" placeholder="email"
-              className="input input-bordered" />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Name</span>
-              </label>
-              <input type="text" placeholder="Name"
-              className="input input-bordered" />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input type="text" placeholder="password"
-              className="input input-bordered" />
-            </div>
-            <div className="form-control mt-6">
-              <button className="btn bg-gradient">Create Account!!</button>
-            </div>
-          </div>
+          <RegisterForm register={onRegister}/>
         </div>
       </div>
     </div>

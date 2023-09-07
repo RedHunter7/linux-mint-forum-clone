@@ -1,10 +1,46 @@
-import { type ReactNode } from 'react'
+import { type MouseEventHandler, type ReactNode } from 'react'
 import { ReactComponent as Logo } from '../../assets/linux-mint-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartSimple, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import { type AuthUserProps } from '../../interfaces'
 
-const Navbar = (): ReactNode => {
+interface NavbarProps {
+  authUser: AuthUserProps | null
+  signOut: MouseEventHandler<HTMLAnchorElement> | undefined
+}
+const Navbar = (prop: NavbarProps): ReactNode => {
+  let outlet = (
+    <Link to={'/login'} className="btn btn-ghost font-medium
+        text-lg lg:text-2xl">
+          <FontAwesomeIcon icon={faRightToBracket}/>
+          <div className='text-base'>Log In</div>
+    </Link>
+  )
+
+  if (prop.authUser != null) {
+    outlet = (
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          <div className="w-10 rounded-full">
+            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          </div>
+        </label>
+        <ul tabIndex={0} className="menu menu-sm dropdown-content
+        mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li>
+            <a className="justify-between">
+              Profile
+              <span className="badge">New</span>
+            </a>
+          </li>
+          <li><a>Settings</a></li>
+          <li><a onClick={prop.signOut}>Logout</a></li>
+        </ul>
+      </div>
+    )
+  }
+
   return (
     <nav className="navbar fixed top-0
     bg-primary text-neutral-content
@@ -25,11 +61,7 @@ const Navbar = (): ReactNode => {
         </Link>
       </div>
       <div className="flex-none gap-x-2 lg:gap-x-8">
-        <Link to={'/login'} className="btn btn-ghost font-medium
-        text-lg lg:text-2xl">
-          <FontAwesomeIcon icon={faRightToBracket}/>
-          <div className='text-base'>Log In</div>
-        </Link>
+        { outlet }
         <Link to={'/leaderboard'} className="btn btn-circle btn-ghost
         text-xl lg:text-2xl">
           <FontAwesomeIcon icon={faChartSimple}/>

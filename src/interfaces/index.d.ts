@@ -7,6 +7,12 @@ declare global {
   }
 }
 
+interface AuthUserProps {
+  id: string
+  photo: string
+  name: string
+}
+
 interface FetchAPIOptions {
   method: string
   headers: object | null
@@ -14,13 +20,13 @@ interface FetchAPIOptions {
 }
 
 interface AccountRegisterProps {
-  id: string
+  name: string
   email: string
   password: string
 }
 
 interface AccountLoginProps {
-  id: string
+  email: string
   password: string
 }
 
@@ -41,5 +47,5 @@ interface ThreadInfoProps {
 
 export type {
   FetchAPIOptions, AccountRegisterProps, AccountLoginProps,
-  ThreadContentProps, ThreadInfoProps, ThreadLikeProps
+  ThreadContentProps, ThreadInfoProps, ThreadLikeProps, AuthUserProps
 }
