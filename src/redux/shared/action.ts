@@ -3,7 +3,7 @@ import api from '../../utils/api'
 import { receiveThreadsActionCreator } from '../threads/action'
 import { receiveUsersActionCreator } from '../users/action'
 
-const asyncPopulateUsersAndTalks = () => {
+const asyncPopulateUsersAndThreads = () => {
   return async (dispatch: (arg0: AnyAction) => void) => {
     try {
       const users = await api.getAllUsers()
@@ -17,4 +17,4 @@ const asyncPopulateUsersAndTalks = () => {
   }
 }
 
-export { asyncPopulateUsersAndTalks }
+export { asyncPopulateUsersAndThreads }

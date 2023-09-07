@@ -7,10 +7,11 @@ declare global {
   }
 }
 
-interface AuthUserProps {
+interface UserProps {
   id: string
-  photo: string
   name: string
+  email: string
+  avatar: string
 }
 
 interface FetchAPIOptions {
@@ -30,9 +31,43 @@ interface AccountLoginProps {
   password: string
 }
 
+interface ThreadProps {
+  id: string
+  title: string
+  body: string
+  category: string
+  createdAt: string
+  ownerId: string
+  upVotesBy: string[]
+  downVotesBy: string[]
+  totalComments: number
+  user: UserProps | undefined
+}
+
+interface ReplyProps {
+  id: string
+  content: string
+  createdAt: string
+  owner: UserProps
+  upVotesBy: string[]
+  downVotesBy: string[]
+}
+
+interface ThreadDetailProps {
+  id: string
+  title: string
+  body: string
+  category: string
+  createdAt: string
+  owner: UserProps
+  upVotesBy: string[]
+  downVotesBy: string[]
+  comments: ReplyProps[]
+}
+
 interface ThreadContentProps {
   text: string
-  replyTo: string
+  replyTo: string | undefined
 }
 
 interface ThreadLikeProps {
@@ -47,5 +82,6 @@ interface ThreadInfoProps {
 
 export type {
   FetchAPIOptions, AccountRegisterProps, AccountLoginProps,
-  ThreadContentProps, ThreadInfoProps, ThreadLikeProps, AuthUserProps
+  ThreadContentProps, ThreadInfoProps, ThreadLikeProps,
+  UserProps, ThreadProps, ThreadDetailProps, ReplyProps
 }

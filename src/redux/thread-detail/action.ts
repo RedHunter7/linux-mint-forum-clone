@@ -1,5 +1,6 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
+import { type ThreadDetailProps } from '../../interfaces'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -8,7 +9,7 @@ const ActionType = {
 }
 
 const receiveThreadDetailActionCreator = (
-  threadDetail: any
+  threadDetail: ThreadDetailProps
 ): AnyAction => {
   return {
     type: ActionType.RECEIVE_THREAD_DETAIL,
@@ -46,16 +47,16 @@ const asyncReceiveThreadDetail = (threadId: any) => {
   }
 }
 
-function asyncToogleLikeTalkDetail () {
+function asyncToogleLikeThreadDetail () {
   return async (dispatch: (
     arg0: AnyAction) => void,
-  getState: () => { authUser: any, talkDetail: any }
+  getState: () => { authUser: any, threadDetail: any }
   ) => {
-    const { authUser, talkDetail } = getState()
+    const { authUser, threadDetail } = getState()
     dispatch(toggleLikeThreadDetailActionCreator(authUser.id))
 
     try {
-      await api.toggleLikeThread(talkDetail.id)
+      await api.toggleLikeThread(threadDetail.id)
     } catch (error: any) {
       throw new Error(error.message)
     }
@@ -68,5 +69,5 @@ export {
   clearThreadDetailActionCreator,
   toggleLikeThreadDetailActionCreator,
   asyncReceiveThreadDetail,
-  asyncToogleLikeTalkDetail
+  asyncToogleLikeThreadDetail
 }

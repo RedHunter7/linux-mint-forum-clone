@@ -1,10 +1,35 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { type ReactNode } from 'react'
-import { ThreadCard } from '../components/data-displays'
+import { useEffect, type ReactNode } from 'react'
+import { ThreadList } from '../components/data-displays'
 import { ThreadForm } from '../components/forms'
+import { useDispatch, useSelector } from 'react-redux'
+import { type AppDispatch } from '../redux'
+import { asyncPopulateUsersAndThreads } from '../redux/shared/action'
+import {
+  type ThreadProps, type UserProps
+} from '../interfaces'
 
 export const HomePage = (): ReactNode => {
+  const {
+    threads = [],
+    users = []
+  } = useSelector((states: {
+    threads: ThreadProps[]
+    users: UserProps[]
+  }) => states)
+
+  const dispatch: AppDispatch = useDispatch()
+
+  useEffect(() => {
+    void dispatch(asyncPopulateUsersAndThreads())
+  }, [dispatch])
+
+  const threadList = threads.map((thread: ThreadProps) => ({
+    ...thread,
+    user: users.find((user: UserProps) => user.id === thread.ownerId)
+  }))
+
   return (
     <div className='w-full max-w-5xl mx-auto'>
       <button onClick={() => window.write_thread_modal.showModal()}
@@ -16,28 +41,7 @@ export const HomePage = (): ReactNode => {
       <dialog id='write_thread_modal' className="modal">
         <ThreadForm/>
       </dialog>
-      <div className='bg-secondary w-full py-3
-      md:px-8 flex justify-center text-center'>
-        <h1 className='w-11/12 text-left
-        md:w-full md:basis-9/12'>
-          Recent Topic
-        </h1>
-        <div className='md:basis-3/12 hidden md:flex
-        text-xs md:text-sm'>
-          <div className='hidden lg:block lg:basis-1/3'>
-            Author
-          </div>
-          <div className='md:basis-1/2 lg:basis-1/3'>
-            Replies
-          </div>
-          <div className='md:basis-1/2 lg:basis-1/3'>
-            Activity
-          </div>
-        </div>
-      </div>
-      <div className='w-full'>
-        <ThreadCard/>
-      </div>
+      <ThreadList threads={threadList}/>
     </div>
   )
 }

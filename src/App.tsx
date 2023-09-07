@@ -9,14 +9,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { asyncPreloadProcess } from './redux/is-preload/action'
 import { asyncUnsetAuthUser } from './redux/auth-user/action'
 import { type AppDispatch } from './redux'
-import { type AuthUserProps } from './interfaces'
+import { type UserProps } from './interfaces'
 
 const App = (): ReactNode => {
   const {
     authUser = null,
     isPreload = false
   } = useSelector((states: {
-    authUser: AuthUserProps | null
+    authUser: UserProps | null
     isPreload: boolean
   }) => states)
 
@@ -45,7 +45,7 @@ const App = (): ReactNode => {
         <Routes>
           <Route path="/">
             <Route index element={<HomePage />} />
-            <Route path="/detail" element={<ThreadDetailPage />} />
+            <Route path="/:id" element={<ThreadDetailPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />

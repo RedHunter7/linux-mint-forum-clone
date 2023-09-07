@@ -1,6 +1,6 @@
 import {
   type AccountLoginProps, type AccountRegisterProps,
-  type ThreadContentProps, type FetchAPIOptions
+  type ThreadContentProps, type FetchAPIOptions, type ThreadDetailProps
 } from '../interfaces'
 
 const api = (() => {
@@ -116,12 +116,12 @@ const api = (() => {
       throw new Error(message)
     }
 
-    const { data: { talks } } = responseJson
+    const { data: { threads } } = responseJson
 
-    return talks
+    return threads
   }
 
-  const getThreadDetail = async (id: string): Promise<object> => {
+  const getThreadDetail = async (id: string): Promise<ThreadDetailProps> => {
     const response = await fetch(`${BASE_URL}/threads/${id}`)
 
     const responseJson = await response.json()
@@ -132,9 +132,9 @@ const api = (() => {
       throw new Error(message)
     }
 
-    const { data: { talkDetail } } = responseJson
+    const { data: { detailThread: threadDetail } } = responseJson
 
-    return talkDetail
+    return threadDetail
   }
 
   const createThread = async (thread: ThreadContentProps): Promise<object> => {
