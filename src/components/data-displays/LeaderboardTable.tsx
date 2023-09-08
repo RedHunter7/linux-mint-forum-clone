@@ -7,6 +7,17 @@ interface LeaderboardTableProps {
 }
 
 export const LeaderboardTable = (prop: LeaderboardTableProps): ReactNode => {
+  let tableRows: ReactNode = (<div></div>)
+  if (prop.leaderboard !== null) {
+    tableRows = (
+      prop.leaderboard.map((
+        accountScore: AccountScoreProps,
+        index
+      ) => (
+              <LeaderboardTableRow key={index} accountScore={accountScore}/>
+      ))
+    )
+  }
   return (
         <table className="table mx-auto max-w-xl bg-accent">
             <thead>
@@ -17,12 +28,7 @@ export const LeaderboardTable = (prop: LeaderboardTableProps): ReactNode => {
             </thead>
             <tbody>
             {
-                prop.leaderboard.map((
-                  accountScore: AccountScoreProps,
-                  index
-                ) => (
-                    <LeaderboardTableRow key={index} accountScore={accountScore}/>
-                ))
+                tableRows
             }
             </tbody>
         </table>
