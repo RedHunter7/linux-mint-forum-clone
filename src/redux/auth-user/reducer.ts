@@ -1,12 +1,15 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import { ActionType } from './action'
+import { type AccountLoginProps } from '../../interfaces/account'
 
-const authUserReducer = (authUser = null, action: AnyAction = {
-  type: '',
-  payload: {
-    authUser: null
-  }
-}): any => {
+const authUserReducer = (
+  authUser: AccountLoginProps | null = null,
+  action: AnyAction = {
+    type: '',
+    payload: {
+      authUser: null
+    }
+  }): AccountLoginProps | null => {
   switch (action.type) {
     case ActionType.SET_AUTH_USER:
       return action.payload.authUser

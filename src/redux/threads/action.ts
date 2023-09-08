@@ -1,6 +1,6 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import {
-  type ThreadInfoProps, type ThreadContentProps
+  type ThreadInfoProps, type ThreadContentProps, type ThreadProps
 } from '../../interfaces'
 import api from '../../utils/api'
 
@@ -10,7 +10,7 @@ const ActionType = {
   TOGGLE_LIKE_THREAD: 'TOGGLE_LIKE_THREAD'
 }
 
-const receiveThreadsActionCreator = (threads: any): AnyAction => {
+const receiveThreadsActionCreator = (threads: ThreadProps[]): AnyAction => {
   return {
     type: ActionType.RECEIVE_THREADS,
     payload: {

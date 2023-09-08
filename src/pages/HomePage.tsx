@@ -6,9 +6,7 @@ import { ThreadForm } from '../components/forms'
 import { useDispatch, useSelector } from 'react-redux'
 import { type AppDispatch } from '../redux'
 import { asyncPopulateUsersAndThreads } from '../redux/shared/action'
-import {
-  type ThreadProps, type UserProps
-} from '../interfaces'
+import { type AccountProfileProps, type ThreadProps } from '../interfaces'
 
 export const HomePage = (): ReactNode => {
   const {
@@ -16,7 +14,7 @@ export const HomePage = (): ReactNode => {
     users = []
   } = useSelector((states: {
     threads: ThreadProps[]
-    users: UserProps[]
+    users: AccountProfileProps[]
   }) => states)
 
   const dispatch: AppDispatch = useDispatch()
@@ -27,7 +25,7 @@ export const HomePage = (): ReactNode => {
 
   const threadList = threads.map((thread: ThreadProps) => ({
     ...thread,
-    user: users.find((user: UserProps) => user.id === thread.ownerId)
+    user: users.find((user: AccountProfileProps) => user.id === thread.ownerId)
   }))
 
   return (
@@ -35,7 +33,7 @@ export const HomePage = (): ReactNode => {
       <button onClick={() => window.write_thread_modal.showModal()}
        className="btn btn-circle btn-lg
        bg-gradient shadow-2xl text-2xl
-       fixed right-16 bottom-12">
+       fixed right-16 bottom-12 z-50">
         <FontAwesomeIcon icon={faPlus}/>
       </button>
       <dialog id='write_thread_modal' className="modal">

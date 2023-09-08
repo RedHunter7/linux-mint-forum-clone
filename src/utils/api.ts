@@ -1,6 +1,7 @@
 import {
-  type AccountLoginProps, type AccountRegisterProps,
-  type ThreadContentProps, type FetchAPIOptions, type ThreadDetailProps
+  type AccountLoginProps, type AccountRegisterProps, type ThreadContentProps,
+  type ThreadDetailProps, type FetchAPIOptions, type ThreadProps,
+  type AccountProfileProps, type AccountScoreProps
 } from '../interfaces'
 
 const api = (() => {
@@ -73,7 +74,7 @@ const api = (() => {
     return token
   }
 
-  const getOwnProfile = async (): Promise<object> => {
+  const getOwnProfile = async (): Promise<AccountProfileProps> => {
     const response = await _fetchWithAuth(`${BASE_URL}/users/me`)
 
     const responseJson = await response.json()
@@ -89,7 +90,7 @@ const api = (() => {
     return user
   }
 
-  const getAllUsers = async (): Promise<object> => {
+  const getAllUsers = async (): Promise<AccountProfileProps[]> => {
     const response = await fetch(`${BASE_URL}/users`)
 
     const responseJson = await response.json()
@@ -105,7 +106,7 @@ const api = (() => {
     return users
   }
 
-  const getAllThreads = async (): Promise<object> => {
+  const getAllThreads = async (): Promise<ThreadProps[]> => {
     const response = await fetch(`${BASE_URL}/threads`)
 
     const responseJson = await response.json()
@@ -137,13 +138,15 @@ const api = (() => {
     return threadDetail
   }
 
-  const createThread = async (thread: ThreadContentProps): Promise<object> => {
+  const createThread = async (
+    threadContent: ThreadContentProps
+  ): Promise<ThreadProps> => {
     const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(thread)
+      body: JSON.stringify(threadContent)
     })
 
     const responseJson = await response.json()
@@ -154,9 +157,9 @@ const api = (() => {
       throw new Error(message)
     }
 
-    const { data: { talk } } = responseJson
+    const { data: { thread } } = responseJson
 
-    return talk
+    return thread
   }
 
   const toggleLikeThread = async (id: string): Promise<void> => {
@@ -179,6 +182,22 @@ const api = (() => {
     }
   }
 
+  const getLeaderboards = async (): Promise<AccountScoreProps[]> => {
+    const response = await fetch(`${BASE_URL}/leaderboards`)
+
+    const responseJson = await response.json()
+
+    const { status, message } = responseJson
+
+    if (status !== 'success') {
+      throw new Error(message)
+    }
+
+    const { data: { leaderboards } } = responseJson
+
+    return leaderboards
+  }
+
   return {
     putAccessToken,
     getAccessToken,
@@ -189,7 +208,8 @@ const api = (() => {
     getAllThreads,
     createThread,
     toggleLikeThread,
-    getThreadDetail
+    getThreadDetail,
+    getLeaderboards
   }
 })()
 

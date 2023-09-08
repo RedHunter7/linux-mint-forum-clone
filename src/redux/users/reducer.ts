@@ -1,9 +1,10 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import { ActionType } from './action'
+import { type AccountProfileProps } from '../../interfaces'
 
 const usersReducer = (
-  users: any[] = [], action: AnyAction
-): any[] => {
+  users: AccountProfileProps[] = [], action: AnyAction
+): AccountProfileProps[] => {
   switch (action.type) {
     case ActionType.RECEIVE_USERS:
       return action.payload.users

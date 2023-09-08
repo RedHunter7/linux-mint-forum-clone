@@ -1,6 +1,6 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import { ActionType } from './action'
-import { type ThreadDetailProps } from '../../interfaces'
+import { type ThreadDetailProps } from '../../interfaces/thread'
 
 const threadDetailReducer = (
   threadDetail: ThreadDetailProps | null = null, action: AnyAction

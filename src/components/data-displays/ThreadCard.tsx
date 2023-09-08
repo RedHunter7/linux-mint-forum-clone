@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import postedAt from '../../utils/postedAt'
 import { type ThreadProps } from '../../interfaces'
 
 interface ThreadCardProps {
@@ -7,20 +8,15 @@ interface ThreadCardProps {
 }
 
 export const ThreadCard = (prop: ThreadCardProps): ReactNode => {
-  const AvatarPlaceHolder = (
-    <div className="avatar placeholder">
-      <div className="bg-neutral-focus
-      text-neutral-content rounded-full w-12">
-        <span className='md:text-lg'>JO</span>
-      </div>
-    </div>
-  )
-
   return (
-        <div className='flex flex-row items-center
+        <div className='flex flex-row items-center gap-x-2
         bg-accent w-full h-fit mt-4 px-2 md:px-8 py-2'>
           <div className='basis-2/12 md:basis-1/12'>
-            <img className='rounded-full' src={prop.thread.user?.avatar} />
+          <div className="avatar">
+            <div className="w-12 md:w-16 rounded-full">
+              <img src={prop.thread.user?.avatar} />
+            </div>
+          </div>
           </div>
           <div className='basis-9/12 md:basis-8/12
           flex flex-col justify-around'>
@@ -48,7 +44,7 @@ export const ThreadCard = (prop: ThreadCardProps): ReactNode => {
             </div>
             <div className='md:basis-1/2 lg:basis-6/12
             text-sm md:text-base'>
-              3h
+              { postedAt(prop.thread.createdAt) }
             </div>
           </div>
         </div>

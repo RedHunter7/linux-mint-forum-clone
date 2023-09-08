@@ -1,6 +1,6 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
-import { type ThreadDetailProps } from '../../interfaces'
+import { type ThreadDetailProps } from '../../interfaces/thread'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',

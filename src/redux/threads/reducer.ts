@@ -15,9 +15,9 @@ const threadsReducer = (
         if (thread.id === action.payload.threadId) {
           return {
             ...threads,
-            likes: (thread.likes.includes(action.payload.userId))
-              ? thread.likes.filter((id) => id !== action.payload.userId)
-              : thread.likes.concat([action.payload.userId])
+            likes: (thread.upVotesBy.includes(action.payload.userId))
+              ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
+              : thread.upVotesBy.concat([action.payload.userId])
           }
         }
         return thread

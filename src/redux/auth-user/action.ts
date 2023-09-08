@@ -1,6 +1,6 @@
 import { type AnyAction } from '@reduxjs/toolkit'
-import { type AccountLoginProps } from '../../interfaces'
 import api from '../../utils/api'
+import { type AccountLoginProps } from '../../interfaces/account'
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',

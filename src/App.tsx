@@ -9,14 +9,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { asyncPreloadProcess } from './redux/is-preload/action'
 import { asyncUnsetAuthUser } from './redux/auth-user/action'
 import { type AppDispatch } from './redux'
-import { type UserProps } from './interfaces'
+import { type AccountProfileProps } from './interfaces'
 
 const App = (): ReactNode => {
   const {
     authUser = null,
     isPreload = false
   } = useSelector((states: {
-    authUser: UserProps | null
+    authUser: AccountProfileProps | null
     isPreload: boolean
   }) => states)
 
@@ -41,7 +41,7 @@ const App = (): ReactNode => {
       <header>
         <Navbar authUser={authUser} signOut={onSignOut}/>
       </header>
-      <div className='mt-20 font-sans'>
+      <div className='min-h-screen mt-20 mb-28 font-sans'>
         <Routes>
           <Route path="/">
             <Route index element={<HomePage />} />
@@ -52,6 +52,12 @@ const App = (): ReactNode => {
           </Route>
         </Routes>
       </div>
+      <footer className="footer footer-center p-4
+      bottom-0 bg-secondary text-base-content">
+        <aside>
+          <p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+        </aside>
+      </footer>
     </BrowserRouter>
   )
 }

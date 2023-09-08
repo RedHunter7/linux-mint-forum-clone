@@ -6,11 +6,7 @@ import { ReplyForm } from '../components/forms'
 import { type AppDispatch } from '../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import {
-  asyncReceiveThreadDetail,
-  asyncToogleLikeThreadDetail
-} from '../redux/thread-detail/action'
-import { asyncAddThread } from '../redux/threads/action'
+import { asyncReceiveThreadDetail } from '../redux/thread-detail/action'
 import { type ReplyProps, type ThreadDetailProps } from '../interfaces'
 
 export const ThreadDetailPage = (): ReactNode => {
@@ -26,14 +22,6 @@ export const ThreadDetailPage = (): ReactNode => {
   useEffect(() => {
     void dispatch(asyncReceiveThreadDetail(id))
   }, [id, dispatch])
-
-  const onLikeThread = (): void => {
-    void dispatch(asyncToogleLikeThreadDetail())
-  }
-
-  const onReplyThread = (text: string): void => {
-    void dispatch(asyncAddThread({ text, replyTo: id }))
-  }
 
   if (threadDetail === null) {
     return null
@@ -58,7 +46,7 @@ export const ThreadDetailPage = (): ReactNode => {
                 #{threadDetail.category}
             </div>
         </div>
-        <div className='mt-8'>
+        <div className='mt-8 flex flex-col gap-y-6 md:gap-y-10'>
             <ReplyCard reply={mainThread}/>
             {
               threadDetail.comments.map((comment) => (
