@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { type AppDispatch } from '../redux'
 import { asyncReceiveleaderboards } from '../redux/leaderboards/action'
 import { type AccountScoreProps } from '../interfaces'
-import { LeaderboardTable } from '../components/data-displays/LeaderboardTable'
+import { LeaderboardTable } from '../components/data-displays'
 
 export const LeaderboardPage = (): ReactNode => {
   const {
-    leaderboards = null
+    leaderboards = []
   } = useSelector((states: {
-    leaderboards: AccountScoreProps[] | null
+    leaderboards: AccountScoreProps[]
   }) => states)
 
   const dispatch: AppDispatch = useDispatch()
@@ -17,8 +17,6 @@ export const LeaderboardPage = (): ReactNode => {
   useEffect(() => {
     void dispatch(asyncReceiveleaderboards())
   }, [dispatch])
-
-  console.log(leaderboards)
 
   return (
     <div>

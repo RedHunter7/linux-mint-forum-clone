@@ -10,9 +10,8 @@ export const LeaderboardTableRow = (prop: LeaderboardTableRowProps): ReactNode =
     <tr>
         <td>
             <div className="flex items-center space-x-7">
-                <div className="avatar placeholder">
-                    <div className="bg-neutral-focus
-                    text-neutral-content rounded-full w-12">
+                <div className="avatar">
+                    <div className="rounded-full w-12">
                         <img src={prop.accountScore.user.avatar}/>
                     </div>
                 </div>

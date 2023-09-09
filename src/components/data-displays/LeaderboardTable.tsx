@@ -1,21 +1,33 @@
 import { type ReactNode } from 'react'
 import { type AccountScoreProps } from '../../interfaces'
 import { LeaderboardTableRow } from './LeaderboardTableRow'
+import { LeaderboardTableRowSkeleton } from '../skeletons'
 
 interface LeaderboardTableProps {
-  leaderboard: AccountScoreProps[] | null
+  leaderboard: AccountScoreProps[]
 }
 
 export const LeaderboardTable = (prop: LeaderboardTableProps): ReactNode => {
-  let tableRows: ReactNode = (<div></div>)
-  if (prop.leaderboard !== null) {
+  let tableRows = (
+    <>
+      <LeaderboardTableRowSkeleton/>
+      <LeaderboardTableRowSkeleton/>
+      <LeaderboardTableRowSkeleton/>
+    </>
+  )
+
+  if (prop.leaderboard.length > 0) {
     tableRows = (
-      prop.leaderboard.map((
-        accountScore: AccountScoreProps,
-        index
-      ) => (
-              <LeaderboardTableRow key={index} accountScore={accountScore}/>
-      ))
+      <>
+        {
+          prop.leaderboard.map((
+            accountScore: AccountScoreProps,
+            index
+          ) => (
+                  <LeaderboardTableRow key={index} accountScore={accountScore}/>
+          ))
+        }
+      </>
     )
   }
   return (

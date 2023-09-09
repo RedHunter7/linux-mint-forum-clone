@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { asyncReceiveThreadDetail } from '../redux/thread-detail/action'
 import { type ReplyProps, type ThreadDetailProps } from '../interfaces'
+import { ThreadDetailSkeleton } from '../components/skeletons'
 
 export const ThreadDetailPage = (): ReactNode => {
   const { id } = useParams()
@@ -24,7 +25,9 @@ export const ThreadDetailPage = (): ReactNode => {
   }, [id, dispatch])
 
   if (threadDetail === null) {
-    return null
+    return (
+      <ThreadDetailSkeleton/>
+    )
   }
 
   const mainThread: ReplyProps = {

@@ -1,12 +1,33 @@
 import { type ReactNode } from 'react'
 import { type ThreadProps } from '../../interfaces'
 import { ThreadCard } from '.'
+import { ThreadCardSkeleton } from '../skeletons'
 
 interface ThreadListProps {
   threads: ThreadProps[]
 }
 
 export const ThreadList = (prop: ThreadListProps): ReactNode => {
+  let threadCards = (
+    <div>
+        <ThreadCardSkeleton/>
+        <ThreadCardSkeleton/>
+        <ThreadCardSkeleton/>
+    </div>
+  )
+
+  if (prop.threads.length > 0) {
+    threadCards = (
+      <div>
+        {
+            prop.threads.map((thread) => (
+                <ThreadCard thread={thread} key={thread.id}/>
+            ))
+        }
+      </div>
+    )
+  }
+
   return (
         <div>
             <div className='bg-secondary w-full py-3
@@ -27,9 +48,7 @@ export const ThreadList = (prop: ThreadListProps): ReactNode => {
             </div>
             <div className='w-full'>
             {
-                prop.threads.map((thread) => (
-                    <ThreadCard thread={thread} key={thread.id}/>
-                ))
+                threadCards
             }
             </div>
         </div>
