@@ -1,13 +1,16 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
-import { type AccountLoginProps } from '../../interfaces/account'
+import {
+  type AccountProfileProps,
+  type AccountLoginProps
+} from '../../interfaces/account'
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
   UNSET_AUTH_USER: 'UNSET_AUTH_USER'
 }
 
-const setAuthUserActionCreator = (authUser: object | null): AnyAction => {
+const setAuthUserActionCreator = (authUser: AccountProfileProps | null): AnyAction => {
   return {
     type: ActionType.SET_AUTH_USER,
     payload: {

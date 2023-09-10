@@ -8,7 +8,7 @@ export const ReplyForm = (): ReactNode => {
     <form
       method="dialog"
       className="modal-box px-0
-            w-full max-w-5xl rounded-none min-h-fit"
+            w-full max-w-5xl e min-h-fit"
     >
       <button
         className="btn btn-sm btn-circle btn-ghost
@@ -23,8 +23,7 @@ export const ReplyForm = (): ReactNode => {
       </div>
       <button
         className="btn btn-sm md:btn-md
-          mr-6 mt-4 bg-gradient
-          float-right font-semibold"
+          mr-6 mt-4 bg-gradient float-right"
       >
         <FontAwesomeIcon icon={faPencil} />
         Post

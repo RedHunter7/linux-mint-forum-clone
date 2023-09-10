@@ -8,7 +8,7 @@ export const ThreadForm = (): ReactNode => {
     <form
       method="dialog"
       className="modal-box px-0
-            w-full max-w-5xl rounded-none min-h-fit"
+            w-full max-w-5xl min-h-fit"
     >
       <button
         className="btn btn-sm btn-circle btn-ghost

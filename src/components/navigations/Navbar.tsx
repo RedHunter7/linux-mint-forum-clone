@@ -1,7 +1,7 @@
 import { type MouseEventHandler, type ReactNode } from 'react'
 import { ReactComponent as Logo } from '../../assets/linux-mint-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartSimple, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faChartSimple, faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { type AccountProfileProps } from '../../interfaces'
 
@@ -11,11 +11,22 @@ interface NavbarProps {
 }
 const Navbar = (prop: NavbarProps): ReactNode => {
   let outlet = (
-    <Link to={'/login'} className="btn btn-ghost font-medium
+   <>
+    <Link to={'/register'} className="btn btn-ghost font-medium
+        text-lg lg:text-2xl">
+          <FontAwesomeIcon icon={faUserPlus}/>
+          <div className='text-base hidden md:block'>
+            Sign Up
+          </div>
+    </Link>
+     <Link to={'/login'} className="btn btn-ghost font-medium
         text-lg lg:text-2xl">
           <FontAwesomeIcon icon={faRightToBracket}/>
-          <div className='text-base'>Log In</div>
+          <div className='text-base hidden md:block'>
+            Log In
+          </div>
     </Link>
+   </>
   )
 
   if (prop.authUser != null) {
@@ -23,18 +34,11 @@ const Navbar = (prop: NavbarProps): ReactNode => {
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            <img src={prop.authUser.avatar} />
           </div>
         </label>
         <ul tabIndex={0} className="menu menu-sm dropdown-content
         mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-          <li>
-            <a className="justify-between">
-              Profile
-              <span className="badge">New</span>
-            </a>
-          </li>
-          <li><a>Settings</a></li>
           <li><a onClick={prop.signOut}>Logout</a></li>
         </ul>
       </div>
@@ -60,7 +64,7 @@ const Navbar = (prop: NavbarProps): ReactNode => {
           Forums
         </Link>
       </div>
-      <div className="flex-none gap-x-2 lg:gap-x-8">
+      <div className="flex-none gap-x-2 lg:gap-x-6">
         { outlet }
         <Link to={'/leaderboard'} className="btn btn-circle btn-ghost
         text-xl lg:text-2xl">

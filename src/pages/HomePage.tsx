@@ -10,9 +10,11 @@ import { type AccountProfileProps, type ThreadProps } from '../interfaces'
 
 export const HomePage = (): ReactNode => {
   const {
+    authUser = null,
     threads = [],
     users = []
   } = useSelector((states: {
+    authUser: AccountProfileProps | null
     threads: ThreadProps[]
     users: AccountProfileProps[]
   }) => states)
@@ -28,14 +30,21 @@ export const HomePage = (): ReactNode => {
     user: users.find((user: AccountProfileProps) => user.id === thread.ownerId)
   }))
 
-  return (
-    <div className='w-full max-w-5xl mx-auto'>
+  let writeThreadButton: ReactNode
+  if (authUser !== null) {
+    writeThreadButton = (
       <button onClick={() => window.write_thread_modal.showModal()}
        className="btn btn-circle btn-lg
        bg-gradient shadow-2xl text-2xl
        fixed right-16 bottom-12 z-50">
         <FontAwesomeIcon icon={faPlus}/>
       </button>
+    )
+  }
+
+  return (
+    <div className='w-full max-w-5xl mx-auto'>
+      { writeThreadButton }
       <dialog id='write_thread_modal' className="modal">
         <ThreadForm/>
       </dialog>
