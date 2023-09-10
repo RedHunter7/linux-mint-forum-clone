@@ -22,21 +22,19 @@ interface ReplyProps {
   downVotesBy: string[]
 }
 
-interface ThreadDetailProps {
-  id: string
+interface ThreadContentProps {
   title: string
   body: string
   category: string
+}
+
+interface ThreadDetailProps extends ThreadContentProps {
+  id: string
   createdAt: string
   owner: AccountProfileProps
   upVotesBy: string[]
   downVotesBy: string[]
   comments: ReplyProps[]
-}
-
-interface ThreadContentProps {
-  text: string
-  replyTo: string | undefined
 }
 
 interface ThreadLikeProps {

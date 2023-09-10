@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react'
+import { type ReactNode } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
@@ -27,9 +27,12 @@ const Toolbar = (): ReactNode => (
   </div>
 )
 
-export const TextEditor = (): ReactNode => {
-  const [value, setValue] = useState('')
+interface TextEditorProps {
+  value?: string
+  onChange?: React.Dispatch<React.SetStateAction<string>>
+}
 
+export const TextEditor = (prop: TextEditorProps): ReactNode => {
   const modules = {
     toolbar: {
       container: '#toolbar'
@@ -59,8 +62,8 @@ export const TextEditor = (): ReactNode => {
         modules={modules}
         formats={formats}
         theme="snow"
-        value={value}
-        onChange={setValue}
+        value={prop.value}
+        onChange={prop.onChange}
       />
     </div>
   )

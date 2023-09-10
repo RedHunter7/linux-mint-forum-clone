@@ -5,7 +5,8 @@ import { type ThreadDetailProps } from '../../interfaces/thread'
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL'
+  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL',
+  ADD_THREAD_REPLY: 'ADD_THREAD_REPLY'
 }
 
 const receiveThreadDetailActionCreator = (

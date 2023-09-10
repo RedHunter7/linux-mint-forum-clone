@@ -6,7 +6,10 @@ import { ThreadForm } from '../components/forms'
 import { useDispatch, useSelector } from 'react-redux'
 import { type AppDispatch } from '../redux'
 import { asyncPopulateUsersAndThreads } from '../redux/shared/action'
-import { type AccountProfileProps, type ThreadProps } from '../interfaces'
+import {
+  type ThreadContentProps, type AccountProfileProps, type ThreadProps
+} from '../interfaces'
+import { asyncAddThread } from '../redux/threads/action'
 
 export const HomePage = (): ReactNode => {
   const {
@@ -30,6 +33,10 @@ export const HomePage = (): ReactNode => {
     user: users.find((user: AccountProfileProps) => user.id === thread.ownerId)
   }))
 
+  const onAddThread = (thread: ThreadContentProps): void => {
+    void dispatch(asyncAddThread(thread))
+  }
+
   let writeThreadButton: ReactNode
   if (authUser !== null) {
     writeThreadButton = (
@@ -46,7 +53,7 @@ export const HomePage = (): ReactNode => {
     <div className='w-full max-w-5xl mx-auto'>
       { writeThreadButton }
       <dialog id='write_thread_modal' className="modal">
-        <ThreadForm/>
+        <ThreadForm createThread={onAddThread}/>
       </dialog>
       <ThreadList threads={threadList}/>
     </div>

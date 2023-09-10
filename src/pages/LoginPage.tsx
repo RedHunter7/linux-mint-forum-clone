@@ -4,12 +4,17 @@ import { asyncSetAuthUser } from '../redux/auth-user/action'
 import { type AccountLoginProps } from '../interfaces'
 import { type AppDispatch } from '../redux'
 import { LoginForm } from '../components/forms'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 export const LoginPage = (): ReactNode => {
+  const navigate = useNavigate()
   const dispatch: AppDispatch = useDispatch()
 
   const onLogin = (props: AccountLoginProps): void => {
     void dispatch(asyncSetAuthUser(props))
+    toast.success('Login Success!!')
+    navigate('/')
   }
 
   return (

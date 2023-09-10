@@ -1,5 +1,3 @@
-import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type ReactNode } from 'react'
 import postedAt from '../../utils/postedAt'
 import HTMLReactParser from 'html-react-parser'
@@ -39,18 +37,20 @@ export const ReplyCard = (prop: ReplyCardProps): ReactNode => {
         <div className="text-justify text-xs md:text-base font-serif">
           {HTMLReactParser(prop.reply.content)}
         </div>
-        <div className="join gap-x-2 mt-4 md:mt-6">
-          <button className="btn btn-outline btn-success
-          join-item border-2 btn-xs md:btn-sm">
-            <FontAwesomeIcon icon={faThumbsUp}/>
-            {prop.reply.upVotesBy.length}
-          </button>
-          <button className="btn btn-outline btn-error
-          join-item border-2 btn-xs md:btn-sm">
-            <FontAwesomeIcon icon={faThumbsDown}/>
-            {prop.reply.downVotesBy.length}
-          </button>
-        </div>
+        {/* Like/Dislike feature will be coming soon
+          <div className="join gap-x-2 mt-4 md:mt-6">
+            <button className="btn btn-outline btn-success
+            join-item border-2 btn-xs md:btn-sm">
+              <FontAwesomeIcon icon={faThumbsUp}/>
+              {prop.reply.upVotesBy.length}
+            </button>
+            <button className="btn btn-outline btn-error
+            join-item border-2 btn-xs md:btn-sm">
+              <FontAwesomeIcon icon={faThumbsDown}/>
+              {prop.reply.downVotesBy.length}
+            </button>
+          </div>
+        */}
       </div>
     </div>
   )

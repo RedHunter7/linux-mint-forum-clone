@@ -10,6 +10,7 @@ import { asyncPreloadProcess } from './redux/is-preload/action'
 import { asyncUnsetAuthUser } from './redux/auth-user/action'
 import { type AppDispatch } from './redux'
 import { type AccountProfileProps } from './interfaces'
+import { Toaster } from 'react-hot-toast'
 
 const App = (): ReactNode => {
   const {
@@ -38,6 +39,7 @@ const App = (): ReactNode => {
 
   return (
     <BrowserRouter>
+      <Toaster/>
       <header>
         <Navbar authUser={authUser} signOut={onSignOut}/>
       </header>

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast'
 import {
   type AccountLoginProps, type AccountRegisterProps, type ThreadContentProps,
   type ThreadDetailProps, type FetchAPIOptions, type ThreadProps,
@@ -26,6 +27,7 @@ const api = (() => {
   const getAccessToken = (): string => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken === null) {
+      toast.error('Could not find access token')
       throw new Error('Could not find access token')
     }
     return accessToken
@@ -44,6 +46,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
+      toast.error('Register Acoount Failed!!')
       throw new Error(message)
     }
 
@@ -66,6 +69,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
+      toast.error('Login Failed!!')
       throw new Error(message)
     }
 
@@ -154,6 +158,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
+      toast.error('Create Thread Failed!!')
       throw new Error(message)
     }
 
