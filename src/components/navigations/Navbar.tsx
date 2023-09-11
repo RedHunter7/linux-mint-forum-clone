@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartSimple, faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { type AccountProfileProps } from '../../interfaces'
+import LoadingBar from 'react-redux-loading-bar'
 
 interface NavbarProps {
   authUser: AccountProfileProps | null
@@ -48,7 +49,14 @@ const Navbar = (prop: NavbarProps): ReactNode => {
   return (
     <nav className="navbar fixed top-0
     bg-primary text-neutral-content
-    xl:px-8 md:px-4 md:py-2 z-40">
+    xl:px-8 md:px-4 md:py-2 z-50">
+      <LoadingBar updateTime={50} showFastActions
+      style={{
+        backgroundColor: 'white',
+        height: '5px',
+        bottom: 0,
+        left: 0
+      }}/>
       <div className="flex-none">
         <Link to={'/'} className="btn btn-outline btn-circle
         btn-secondary border-0">
