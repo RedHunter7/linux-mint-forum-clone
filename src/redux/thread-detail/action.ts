@@ -1,6 +1,7 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
 import {
+  type ReplyContentProps,
   type ThreadDetailProps
 } from '../../interfaces/thread'
 import { hideLoading, showLoading } from 'react-redux-loading-bar'
@@ -8,7 +9,8 @@ import { hideLoading, showLoading } from 'react-redux-loading-bar'
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL'
+  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL',
+  ADD_THREAD_REPLY: 'ADD_THREAD_REPLY'
 }
 
 const receiveThreadDetailActionCreator = (
@@ -29,6 +31,16 @@ const clearThreadDetailActionCreator = (): AnyAction => {
   }
 }
 
+const addReplyActionCreator = (reply: any): AnyAction => {
+  console.log('asfad')
+  return {
+    type: ActionType.ADD_THREAD_REPLY,
+    payload: {
+      reply
+    }
+  }
+}
+
 const toggleLikeThreadDetailActionCreator = (userId: any): AnyAction => {
   return {
     type: ActionType.TOGGLE_LIKE_THREAD_DETAIL,
@@ -45,6 +57,22 @@ const asyncReceiveThreadDetail = (threadId: any) => {
     try {
       const threadDetail = await api.getThreadDetail(threadId)
       dispatch(receiveThreadDetailActionCreator(threadDetail))
+    } catch (error: any) {
+      throw new Error(error.message)
+    }
+    dispatch(hideLoading())
+  }
+}
+
+const asyncAddReply = (
+  reply: ReplyContentProps,
+  onSuccess: () => void
+) => {
+  return async (dispatch: (arg0: AnyAction) => void) => {
+    dispatch(showLoading())
+    try {
+      const postReply = await api.createReply(reply, onSuccess)
+      dispatch(addReplyActionCreator(postReply))
     } catch (error: any) {
       throw new Error(error.message)
     }
@@ -75,7 +103,9 @@ export {
   ActionType,
   receiveThreadDetailActionCreator,
   clearThreadDetailActionCreator,
+  addReplyActionCreator,
   toggleLikeThreadDetailActionCreator,
   asyncReceiveThreadDetail,
+  asyncAddReply,
   asyncToogleLikeThreadDetail
 }

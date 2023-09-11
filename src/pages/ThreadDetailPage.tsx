@@ -5,13 +5,12 @@ import { ReplyCard } from '../components/data-displays'
 import { ReplyForm } from '../components/forms'
 import { type AppDispatch } from '../redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { asyncReceiveThreadDetail } from '../redux/thread-detail/action'
+import { useParams } from 'react-router-dom'
+import { asyncAddReply, asyncReceiveThreadDetail } from '../redux/thread-detail/action'
 import {
   type AccountProfileProps, type ReplyProps, type ThreadDetailProps
 } from '../interfaces'
 import { ThreadDetailSkeleton } from '../components/skeletons'
-import { asyncAddReply } from '../redux/reply/action'
 import { AuthUserModal, FormModal } from '../components/modals'
 import toast from 'react-hot-toast'
 
@@ -26,7 +25,6 @@ export const ThreadDetailPage = (): ReactNode => {
   }) => states)
 
   const dispatch: AppDispatch = useDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
     void dispatch(asyncReceiveThreadDetail(id))
@@ -61,7 +59,6 @@ export const ThreadDetailPage = (): ReactNode => {
     void dispatch(asyncAddReply({
       threadId: id, content
     }, () => {
-      navigate(`/${id}`)
       window.write_reply_modal.close()
       toast.success('Create Reply Success!!')
     }))

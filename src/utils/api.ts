@@ -200,7 +200,6 @@ const api = (() => {
     const responseJson = await response.json()
 
     const { status, message } = responseJson
-    console.log(responseJson)
 
     if (status !== 'success') {
       toast.error('Create Reply Failed!!')

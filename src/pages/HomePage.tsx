@@ -12,7 +12,6 @@ import {
 import { asyncAddThread } from '../redux/threads/action'
 import { FormModal } from '../components/modals'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
 
 export const HomePage = (): ReactNode => {
   const {
@@ -26,7 +25,6 @@ export const HomePage = (): ReactNode => {
   }) => states)
 
   const dispatch: AppDispatch = useDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
     void dispatch(asyncPopulateUsersAndThreads())
@@ -39,7 +37,6 @@ export const HomePage = (): ReactNode => {
 
   const onAddThread = (thread: ThreadContentProps): void => {
     void dispatch(asyncAddThread(thread, () => {
-      navigate('/')
       window.write_thread_modal.close()
       toast.success('Create Thread Success!!')
     }))

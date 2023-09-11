@@ -9,6 +9,7 @@ const threadsReducer = (
     case ActionType.RECEIVE_THREADS:
       return action.payload.threads
     case ActionType.ADD_THREAD:
+      console.log('sadasd')
       return [action.payload.thread, ...threads]
     case ActionType.TOGGLE_LIKE_THREAD:
       return threads.map((thread: ThreadLikeProps) => {

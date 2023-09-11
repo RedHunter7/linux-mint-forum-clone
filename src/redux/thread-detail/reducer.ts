@@ -10,6 +10,12 @@ const threadDetailReducer = (
       return action.payload.threadDetail
     case ActionType.CLEAR_THREAD_DETAIL:
       return null
+    case ActionType.ADD_THREAD_REPLY:
+      if (threadDetail === null) return null
+      return {
+        ...threadDetail,
+        comments: [action.payload.reply, ...threadDetail?.comments]
+      }
     case ActionType.TOGGLE_LIKE_THREAD_DETAIL:
       if (threadDetail === null) return null
       return {

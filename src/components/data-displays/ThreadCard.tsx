@@ -26,6 +26,7 @@ export const ThreadCard = (prop: ThreadCardProps): ReactNode => {
               {prop.thread.title}
             </Link>
             <div className='font-normal flex gap-x-2'>
+              {prop.thread.user?.name}
               <div className="badge badge-secondary
               text-xs md:text-sm">
                 #{ prop.thread.category }
