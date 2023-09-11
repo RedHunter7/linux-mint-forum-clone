@@ -1,20 +1,21 @@
 import { type ReactNode } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { asyncRegisterUser } from '../redux/users/action'
 import { type AccountRegisterProps } from '../interfaces'
 import { type AppDispatch } from '../redux'
 import { RegisterForm } from '../components/forms'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 export const RegisterPage = (): ReactNode => {
-  const navigate = useNavigate()
   const dispatch: AppDispatch = useDispatch()
+  const navigate = useNavigate()
 
   const onRegister = (props: AccountRegisterProps): void => {
-    void dispatch(asyncRegisterUser(props))
-    toast.success('Register Account Success!!')
-    navigate('/login')
+    void dispatch(asyncRegisterUser(props, () => {
+      toast.success('Register Account Success!!')
+      navigate('/login')
+    }))
   }
 
   return (

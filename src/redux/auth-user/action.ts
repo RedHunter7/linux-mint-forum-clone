@@ -4,6 +4,7 @@ import {
   type AccountProfileProps,
   type AccountLoginProps
 } from '../../interfaces/account'
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -28,10 +29,14 @@ const unsetAuthUserActionCreator = (): AnyAction => {
   }
 }
 
-function asyncSetAuthUser (account: AccountLoginProps) {
+function asyncSetAuthUser (
+  account: AccountLoginProps,
+  onSuccess: () => void
+) {
   return async (dispatch: (arg0: AnyAction) => void) => {
+    dispatch(showLoading())
     try {
-      const token = await api.login(account)
+      const token = await api.login(account, onSuccess)
       api.putAccessToken(token)
       const authUser = await api.getOwnProfile()
 
@@ -39,6 +44,7 @@ function asyncSetAuthUser (account: AccountLoginProps) {
     } catch (error: any) {
       throw new Error(error.message)
     }
+    dispatch(hideLoading())
   }
 }
 

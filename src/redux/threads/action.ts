@@ -3,6 +3,7 @@ import {
   type ThreadInfoProps, type ThreadContentProps, type ThreadProps
 } from '../../interfaces'
 import api from '../../utils/api'
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -35,10 +36,15 @@ const toggleLikeThreadActionCreator = (threadInfo: ThreadInfoProps): AnyAction =
   }
 }
 
-const asyncAddThread = (thread: ThreadContentProps) => {
+const asyncAddThread = (
+  thread: ThreadContentProps,
+  onSuccess: () => void
+) => {
   return async (dispatch: (arg0: AnyAction) => void) => {
+    dispatch(showLoading())
+
     try {
-      const postThread = await api.createThread(thread)
+      const postThread = await api.createThread(thread, onSuccess)
       dispatch(addThreadActionCreator(postThread))
     } catch (error: any) {
       throw new Error(error.message)
@@ -52,6 +58,7 @@ const asyncToogleLikeThread = (threadId: any) => {
     getState: () => { authUser: any }) => {
     const { authUser } = getState()
     dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }))
+    dispatch(showLoading())
 
     try {
       await api.toggleLikeThread(threadId)
@@ -59,6 +66,8 @@ const asyncToogleLikeThread = (threadId: any) => {
       dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }))
       throw new Error(error.message)
     }
+
+    dispatch(hideLoading())
   }
 }
 

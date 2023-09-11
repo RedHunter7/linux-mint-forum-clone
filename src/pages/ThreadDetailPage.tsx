@@ -1,18 +1,19 @@
 import { useEffect, type ReactNode, type MouseEventHandler } from 'react'
-import { faReply, faRightToBracket, faUserPlus, faX } from '@fortawesome/free-solid-svg-icons'
+import { faReply } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReplyCard } from '../components/data-displays'
 import { ReplyForm } from '../components/forms'
 import { type AppDispatch } from '../redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { asyncReceiveThreadDetail } from '../redux/thread-detail/action'
 import {
   type AccountProfileProps, type ReplyProps, type ThreadDetailProps
 } from '../interfaces'
 import { ThreadDetailSkeleton } from '../components/skeletons'
-import toast, { Toaster } from 'react-hot-toast'
 import { asyncAddReply } from '../redux/reply/action'
+import { AuthUserModal, FormModal } from '../components/modals'
+import toast from 'react-hot-toast'
 
 export const ThreadDetailPage = (): ReactNode => {
   const { id } = useParams()
@@ -57,11 +58,13 @@ export const ThreadDetailPage = (): ReactNode => {
   }
 
   const onAddReply = (content: string): void => {
-    void dispatch(asyncAddReply({ threadId: id, content }))
-    window.write_reply_modal.close()
-
-    navigate(`/${id}`)
-    toast.success('Create Reply Success!!')
+    void dispatch(asyncAddReply({
+      threadId: id, content
+    }, () => {
+      navigate(`/${id}`)
+      window.write_reply_modal.close()
+      toast.success('Create Reply Success!!')
+    }))
   }
 
   return (
@@ -89,45 +92,10 @@ export const ThreadDetailPage = (): ReactNode => {
             <FontAwesomeIcon icon={faReply}/>
             Reply
         </button>
-        <dialog id='write_reply_modal' className="modal">
-          <Toaster/>
-          <div
-            className="modal-box px-0
-              w-full max-w-5xl min-h-fit">
-            <form method='dialog'>
-              <button
-                className="btn btn-sm btn-circle btn-ghost
-                  absolute right-2 top-2">
-                <FontAwesomeIcon icon={faX} />
-              </button>
-            </form>
-            <h3 className="font-semibold px-4">Post a new Reply</h3>
-            <ReplyForm createReply={onAddReply}/>
-          </div>
-        </dialog>
-        <dialog id="auth_user_modal" className="modal">
-          <div className="modal-box">
-            <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                <FontAwesomeIcon icon={faX}/>
-              </button>
-            </form>
-            <h3 className="font-bold text-lg">Login</h3>
-            <p className="py-4">You have to login to do this activity!</p>
-            <div className='flex flex-row gap-x-2 float-right mr-2 mt-4'>
-              <Link to={'/login'}
-                className="btn btn-sm md:btn-md bg-gradient">
-                <FontAwesomeIcon icon={faRightToBracket} />
-                Login
-              </Link>
-              <Link to={'/register'}
-                className="btn btn-sm md:btn-md bg-gradient">
-                <FontAwesomeIcon icon={faUserPlus} />
-                Signup
-              </Link>
-            </div>
-          </div>
-        </dialog>
+        <FormModal id='write_reply_modal' title='Post a new Reply'>
+          <ReplyForm createReply={onAddReply}/>
+        </FormModal>
+        <AuthUserModal id='auth_user_modal'/>
     </div>
   )
 }

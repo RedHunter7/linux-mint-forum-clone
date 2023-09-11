@@ -11,6 +11,7 @@ import { asyncUnsetAuthUser } from './redux/auth-user/action'
 import { type AppDispatch } from './redux'
 import { type AccountProfileProps } from './interfaces'
 import { Toaster } from 'react-hot-toast'
+import { LoadingBar } from 'react-redux-loading-bar'
 
 const App = (): ReactNode => {
   const {
@@ -41,6 +42,7 @@ const App = (): ReactNode => {
     <BrowserRouter>
       <Toaster/>
       <header>
+        <LoadingBar />
         <Navbar authUser={authUser} signOut={onSignOut}/>
       </header>
       <div className='min-h-screen mt-20 mb-28 font-sans'>

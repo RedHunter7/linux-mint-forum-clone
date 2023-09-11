@@ -3,12 +3,13 @@ import {
   type AccountProfileProps, type AccountRegisterProps
 } from '../../interfaces'
 import api from '../../utils/api'
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
 
 const ActionType = {
   RECEIVE_USERS: 'RECEIVE_USERS'
 }
 
-const receiveUsersActionCreator = (users: AccountProfileProps): AnyAction => {
+const receiveUsersActionCreator = (users: AccountProfileProps[]): AnyAction => {
   return {
     type: ActionType.RECEIVE_USERS,
     payload: {
@@ -17,13 +18,18 @@ const receiveUsersActionCreator = (users: AccountProfileProps): AnyAction => {
   }
 }
 
-function asyncRegisterUser (account: AccountRegisterProps) {
-  return async () => {
+function asyncRegisterUser (
+  account: AccountRegisterProps,
+  onSuccess: () => void
+) {
+  return async (dispatch: (arg0: AnyAction) => void) => {
+    dispatch(showLoading())
     try {
-      await api.register(account)
+      await api.register(account, onSuccess)
     } catch (error: any) {
       throw new Error(error.message)
     }
+    dispatch(hideLoading())
   }
 }
 

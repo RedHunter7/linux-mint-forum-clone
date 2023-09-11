@@ -3,6 +3,7 @@ import api from '../../utils/api'
 import {
   type ThreadDetailProps
 } from '../../interfaces/thread'
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -40,12 +41,14 @@ const toggleLikeThreadDetailActionCreator = (userId: any): AnyAction => {
 const asyncReceiveThreadDetail = (threadId: any) => {
   return async (dispatch: (arg0: AnyAction) => void) => {
     dispatch(clearThreadDetailActionCreator())
+    dispatch(showLoading())
     try {
       const threadDetail = await api.getThreadDetail(threadId)
       dispatch(receiveThreadDetailActionCreator(threadDetail))
     } catch (error: any) {
       throw new Error(error.message)
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -54,6 +57,8 @@ function asyncToogleLikeThreadDetail () {
     arg0: AnyAction) => void,
   getState: () => { authUser: any, threadDetail: any }
   ) => {
+    dispatch(showLoading())
+
     const { authUser, threadDetail } = getState()
     dispatch(toggleLikeThreadDetailActionCreator(authUser.id))
 
@@ -62,6 +67,7 @@ function asyncToogleLikeThreadDetail () {
     } catch (error: any) {
       throw new Error(error.message)
     }
+    dispatch(hideLoading())
   }
 }
 

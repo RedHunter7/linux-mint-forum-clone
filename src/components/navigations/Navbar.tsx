@@ -48,7 +48,7 @@ const Navbar = (prop: NavbarProps): ReactNode => {
   return (
     <nav className="navbar fixed top-0
     bg-primary text-neutral-content
-    xl:px-8 md:px-4 md:py-2 z-50">
+    xl:px-8 md:px-4 md:py-2 z-40">
       <div className="flex-none">
         <Link to={'/'} className="btn btn-outline btn-circle
         btn-secondary border-0">

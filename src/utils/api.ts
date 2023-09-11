@@ -34,7 +34,10 @@ const api = (() => {
     return accessToken
   }
 
-  const register = async (account: AccountRegisterProps): Promise<object> => {
+  const register = async (
+    account: AccountRegisterProps,
+    onSuccess: () => void
+  ): Promise<object> => {
     const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
@@ -53,10 +56,15 @@ const api = (() => {
 
     const { data: { user } } = responseJson
 
+    onSuccess()
+
     return user
   }
 
-  const login = async (account: AccountLoginProps): Promise<string> => {
+  const login = async (
+    account: AccountLoginProps,
+    onSuccess: () => void
+  ): Promise<string> => {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
@@ -75,6 +83,8 @@ const api = (() => {
     }
 
     const { data: { token } } = responseJson
+
+    onSuccess()
 
     return token
   }
@@ -144,7 +154,8 @@ const api = (() => {
   }
 
   const createThread = async (
-    threadContent: ThreadContentProps
+    threadContent: ThreadContentProps,
+    onSuccess: () => void
   ): Promise<ThreadProps> => {
     const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: 'POST',
@@ -165,11 +176,14 @@ const api = (() => {
 
     const { data: { thread } } = responseJson
 
+    onSuccess()
+
     return thread
   }
 
   const createReply = async (
-    replyContent: ReplyContentProps
+    replyContent: ReplyContentProps,
+    onSuccess: () => void
   ): Promise<ReplyProps> => {
     const response = await _fetchWithAuth(
       `${BASE_URL}/threads/${replyContent.threadId}/comments`,
@@ -199,7 +213,7 @@ const api = (() => {
       }
     } = responseJson
 
-    console.log(reply)
+    onSuccess()
 
     return reply
   }
