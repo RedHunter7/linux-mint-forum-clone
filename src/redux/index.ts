@@ -5,6 +5,7 @@ import threadDetailReducer from './thread-detail/reducer'
 import threadsReducer from './threads/reducer'
 import usersReducer from './users/reducer'
 import leaderboardsReducer from './leaderboards/reducer'
+import replyReducer from './reply/reducer'
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     users: usersReducer,
     threads: threadsReducer,
     threadDetail: threadDetailReducer,
-    leaderboards: leaderboardsReducer
+    leaderboards: leaderboardsReducer,
+    reply: replyReducer
   }
 })
 

@@ -22,6 +22,11 @@ interface ReplyProps {
   downVotesBy: string[]
 }
 
+interface ReplyContentProps {
+  threadId: string | undefined
+  content: string
+}
+
 interface ThreadContentProps {
   title: string
   body: string
@@ -48,6 +53,6 @@ interface ThreadInfoProps {
 }
 
 export type {
-  ThreadProps, ThreadDetailProps, ReplyProps,
+  ThreadProps, ThreadDetailProps, ReplyProps, ReplyContentProps,
   ThreadContentProps, ThreadLikeProps, ThreadInfoProps
 }

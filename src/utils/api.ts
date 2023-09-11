@@ -2,8 +2,9 @@ import toast from 'react-hot-toast'
 import {
   type AccountLoginProps, type AccountRegisterProps, type ThreadContentProps,
   type ThreadDetailProps, type FetchAPIOptions, type ThreadProps,
-  type AccountProfileProps, type AccountScoreProps
+  type AccountProfileProps, type AccountScoreProps, type ReplyProps
 } from '../interfaces'
+import { type ReplyContentProps } from '../interfaces/thread'
 
 const api = (() => {
   const BASE_URL = 'https://forum-api.dicoding.dev/v1'
@@ -167,6 +168,42 @@ const api = (() => {
     return thread
   }
 
+  const createReply = async (
+    replyContent: ReplyContentProps
+  ): Promise<ReplyProps> => {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${replyContent.threadId}/comments`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: replyContent.content
+        })
+      })
+
+    const responseJson = await response.json()
+
+    const { status, message } = responseJson
+    console.log(responseJson)
+
+    if (status !== 'success') {
+      toast.error('Create Reply Failed!!')
+      throw new Error(message)
+    }
+
+    const {
+      data: {
+        comment: reply
+      }
+    } = responseJson
+
+    console.log(reply)
+
+    return reply
+  }
+
   const toggleLikeThread = async (id: string): Promise<void> => {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/likes`, {
       method: 'POST',
@@ -212,6 +249,7 @@ const api = (() => {
     getAllUsers,
     getAllThreads,
     createThread,
+    createReply,
     toggleLikeThread,
     getThreadDetail,
     getLeaderboards

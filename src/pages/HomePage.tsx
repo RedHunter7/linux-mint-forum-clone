@@ -1,4 +1,4 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, type ReactNode } from 'react'
 import { ThreadList } from '../components/data-displays'
@@ -10,6 +10,8 @@ import {
   type ThreadContentProps, type AccountProfileProps, type ThreadProps
 } from '../interfaces'
 import { asyncAddThread } from '../redux/threads/action'
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 export const HomePage = (): ReactNode => {
   const {
@@ -23,6 +25,7 @@ export const HomePage = (): ReactNode => {
   }) => states)
 
   const dispatch: AppDispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     void dispatch(asyncPopulateUsersAndThreads())
@@ -35,9 +38,14 @@ export const HomePage = (): ReactNode => {
 
   const onAddThread = (thread: ThreadContentProps): void => {
     void dispatch(asyncAddThread(thread))
+    window.write_thread_modal.close()
+
+    navigate('/')
+    toast.success('Create Thread Success!!')
   }
 
   let writeThreadButton: ReactNode
+  let writeThreadModal: ReactNode
   if (authUser !== null) {
     writeThreadButton = (
       <button onClick={() => window.write_thread_modal.showModal()}
@@ -47,14 +55,32 @@ export const HomePage = (): ReactNode => {
         <FontAwesomeIcon icon={faPlus}/>
       </button>
     )
+
+    writeThreadModal = (
+      <dialog id='write_thread_modal' className="modal">
+        <Toaster/>
+        <div
+          className="modal-box px-0
+                w-full max-w-5xl min-h-fit"
+        >
+          <form method='dialog'>
+            <button
+              className="btn btn-sm btn-circle btn-ghost
+                absolute right-2 top-2">
+              <FontAwesomeIcon icon={faX} />
+            </button>
+          </form>
+          <h3 className="font-semibold px-4">Post a new topic</h3>
+          <ThreadForm createThread={onAddThread}/>
+        </div>
+      </dialog>
+    )
   }
 
   return (
     <div className='w-full max-w-5xl mx-auto'>
       { writeThreadButton }
-      <dialog id='write_thread_modal' className="modal">
-        <ThreadForm createThread={onAddThread}/>
-      </dialog>
+      { writeThreadModal }
       <ThreadList threads={threadList}/>
     </div>
   )

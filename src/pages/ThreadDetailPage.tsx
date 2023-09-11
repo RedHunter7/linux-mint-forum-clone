@@ -5,12 +5,14 @@ import { ReplyCard } from '../components/data-displays'
 import { ReplyForm } from '../components/forms'
 import { type AppDispatch } from '../redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { asyncReceiveThreadDetail } from '../redux/thread-detail/action'
 import {
   type AccountProfileProps, type ReplyProps, type ThreadDetailProps
 } from '../interfaces'
 import { ThreadDetailSkeleton } from '../components/skeletons'
+import toast, { Toaster } from 'react-hot-toast'
+import { asyncAddReply } from '../redux/reply/action'
 
 export const ThreadDetailPage = (): ReactNode => {
   const { id } = useParams()
@@ -23,6 +25,7 @@ export const ThreadDetailPage = (): ReactNode => {
   }) => states)
 
   const dispatch: AppDispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     void dispatch(asyncReceiveThreadDetail(id))
@@ -53,6 +56,14 @@ export const ThreadDetailPage = (): ReactNode => {
     }
   }
 
+  const onAddReply = (content: string): void => {
+    void dispatch(asyncAddReply({ threadId: id, content }))
+    window.write_reply_modal.close()
+
+    navigate(`/${id}`)
+    toast.success('Create Reply Success!!')
+  }
+
   return (
     <div className='w-full max-w-5xl mx-auto'>
         <div className='px-4 pt-2'>
@@ -79,7 +90,20 @@ export const ThreadDetailPage = (): ReactNode => {
             Reply
         </button>
         <dialog id='write_reply_modal' className="modal">
-            <ReplyForm/>
+          <Toaster/>
+          <div
+            className="modal-box px-0
+              w-full max-w-5xl min-h-fit">
+            <form method='dialog'>
+              <button
+                className="btn btn-sm btn-circle btn-ghost
+                  absolute right-2 top-2">
+                <FontAwesomeIcon icon={faX} />
+              </button>
+            </form>
+            <h3 className="font-semibold px-4">Post a new Reply</h3>
+            <ReplyForm createReply={onAddReply}/>
+          </div>
         </dialog>
         <dialog id="auth_user_modal" className="modal">
           <div className="modal-box">

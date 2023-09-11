@@ -1,12 +1,13 @@
 import { type AnyAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
-import { type ThreadDetailProps } from '../../interfaces/thread'
+import {
+  type ThreadDetailProps
+} from '../../interfaces/thread'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL',
-  ADD_THREAD_REPLY: 'ADD_THREAD_REPLY'
+  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL'
 }
 
 const receiveThreadDetailActionCreator = (
