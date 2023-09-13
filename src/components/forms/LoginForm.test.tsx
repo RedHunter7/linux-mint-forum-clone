@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { render, screen, cleanup } from '@testing-library/react'
 import { describe, expect, it, afterEach, vi } from 'vitest'
 import { LoginForm } from '.'

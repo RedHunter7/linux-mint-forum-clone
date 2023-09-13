@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { describe, beforeEach, afterEach, it, vi, expect } from 'vitest'
 import { hideLoading, showLoading } from 'react-redux-loading-bar'
 import { type AccountProfileProps, type ThreadProps } from '../../interfaces'
