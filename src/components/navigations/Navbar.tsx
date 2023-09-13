@@ -67,7 +67,7 @@ const Navbar = (prop: NavbarProps): ReactNode => {
         <Link to={'/'} className="btn btn-ghost normal-case
         text-lg lg:text-2xl font-medium">
           <div className='hidden lg:block'>
-            Linux Mint
+            Linux Mintx
           </div>
           Forums
         </Link>
