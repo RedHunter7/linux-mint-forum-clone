@@ -5,7 +5,7 @@ import { type AccountLoginProps } from '../interfaces'
 import { type AppDispatch } from '../redux'
 import { LoginForm } from '../components/forms'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const LoginPage = (): ReactNode => {
   const dispatch: AppDispatch = useDispatch()
@@ -32,7 +32,16 @@ export const LoginPage = (): ReactNode => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm
         shadow-2xl bg-base-100">
-         <LoginForm login={onLogin}/>
+          <div className="card-body">
+            <LoginForm login={onLogin}/>
+            <label className="text-sm text-center mt-2">
+                Does not have an account? &nbsp;
+                <Link to={'/register'} className="link link-hover
+                text-primary-focus font-bold">
+                  Create Account
+                </Link>
+            </label>
+          </div>
         </div>
       </div>
     </div>

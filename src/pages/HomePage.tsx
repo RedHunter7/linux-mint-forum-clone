@@ -46,7 +46,8 @@ export const HomePage = (): ReactNode => {
   let writeThreadModal: ReactNode
   if (authUser !== null) {
     writeThreadButton = (
-      <button onClick={() => window.write_thread_modal.showModal()}
+      <button id='open_write_thread_modal_button'
+      onClick={() => window.write_thread_modal.showModal()}
        className="btn btn-circle btn-lg
        bg-gradient shadow-2xl text-2xl
        fixed right-16 bottom-12 z-50">

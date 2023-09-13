@@ -14,7 +14,7 @@ const asyncPopulateUsersAndThreads = () => {
       dispatch(receiveUsersActionCreator(users))
       dispatch(receiveThreadsActionCreator(threads))
     } catch (error: any) {
-      throw new Error(error.message)
+      console.error(new Error(error.message))
     }
     dispatch(hideLoading())
   }
